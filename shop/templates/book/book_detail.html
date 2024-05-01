@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block content %}
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Pages</th>
+            <th>Price</th>
+            <th>Rating</th>
+            <th>Authores</th>
+            <th>Publisher</th>
+            <th>Published date</th>
+            <th>Ramaining</th>
+        </tr>
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.pages }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.rating }}</td>
+            <td>{{ product.authors }}</td>
+            <td>{{ product.publisher }}</td>
+            <td>{{ product.pubdate }}</td>
+            <td>{{ product.amount }}</td>
+        </tr>
+    </table>
+
+    <form action="{% url "book_detail" product.id %}" method="post">
+        {% csrf_token %}
+        {% bootstrap_form cart_product_form %}
+
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                Add to cart
+            </button>
+        {% endbuttons %}
+    </form>
+{% endblock %}

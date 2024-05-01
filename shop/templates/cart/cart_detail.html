@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+    {% block content %}
+        <h1>Your cart</h1>
+        <table class="cart">
+            <thead>
+            <tr>
+                <th>Book</th>
+                <th>Amount</th>
+                <th>Remove</th>
+                <th>Price per item</th>
+                <th>Totalt</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in cart %}
+                {% with product=item.product %}
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td><a href="{% url "cart_remove" product.id%}">Remove</a></td>
+                        <td class="num">${{ item.price }}</td>
+                        <td class="num">${{ item.total_price }}</td>
+                    </tr>
+                {% endwith %}
+            {% endfor %}
+            <tr class="total">
+                <td>Total</td>
+                <td colspan="4"></td>
+                <td class="num">${{ cart.get_total_price }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="text-left">
+            <a href="{% url "books_list" %}" class="button light">Back to shop</a>
+            <a href="{% url "orders:order_create" %}" class="button">
+                Order
+            </a>
+        </p>
+    {% endblock %}
